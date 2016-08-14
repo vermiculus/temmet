@@ -41,7 +41,7 @@ export default function ClassGen(input: string): string {
         .map((x: u.Field): string => `public ${x.name}: ${x.type}`)
         .join(", ");
     if (params != "") {
-        params = `constructor(${params})`;
+        params = `constructor(${params}){}`;
         lines.push(params);
     }
 
