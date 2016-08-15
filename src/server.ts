@@ -1,9 +1,7 @@
 /// <reference path="../headers/hapi/hapi.d.ts" />
 import * as Hapi from 'hapi';
 
-import TemmeT from './modules/temmet';
-let temmet_response: string;
-let temp1: string;
+import * as temmet from './modules/temmet';
 
 const server = new Hapi.Server();
 server.connection({ 
@@ -13,18 +11,26 @@ server.connection({
 
 server.route({
     method: 'GET',
-    path:'/temmet/{code}', 
+    path:'/temmet/expand/{code}', 
     handler: (request, reply) => {
         try {
-            temp1 = request.params['code'];
-            console.log(temp1);
-            temmet_response = TemmeT(temp1);
-            console.log('Response: ' + temmet_response);
-            return reply(temmet_response);
+            return reply(temmet.Expand(request.params['code']));
         } catch (e) {
             console.log('Encountered an error');
             return reply("Temmet throw an error!").code(400);
         }
+    }
+});
+
+server.route({
+    method: 'GET',
+    path:'/temmet/constants/{const}', 
+    handler: (request, reply) => {
+        switch (request.params['const']) {
+        case "cursor-flag":
+            return reply(temmet.CURSOR_HERE)
+        }
+        return reply("Not Found").code(400);
     }
 });
 
