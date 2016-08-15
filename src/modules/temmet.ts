@@ -6,5 +6,8 @@ export default function TemmeT(input: string): string {
     let f: u.ITextTransformer
     if (input.match(/\w\./)) { f = ClassGen }
     else if (input.match(/\w>/)) { f = InterfaceGen }
-    return f == null ? input : f(input);
+    if(f == null) {
+        throw new Error("Not recognized");
+    }
+    return f(input);
 }

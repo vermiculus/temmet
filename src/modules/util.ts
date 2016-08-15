@@ -8,7 +8,7 @@ export interface ITextTransformer { (input: string): string; }
  * @desc Take a bunch of `lines` and jam them together into one
  *       string, indented
  */
-export function JamLines(lines: string[], indent: boolean = true, indentAmount: number = 3): string {
+export function JamLines(lines: string[], indent: boolean = true, indentAmount: number = 4): string {
     if (lines.length < 1) {
         return "";
     }
@@ -36,13 +36,13 @@ const TypeShortcuts = {
 }
 export function MakeField(fieldspec: string) {
     let [n, t] = fieldspec.split(":", 2);
-    let p: boolean = false;
+    let p: boolean = true;
     if (t == null) t = "";
     if (n == "" && t == "") return null;
     // if the name begins with '-', it's supposed to be private
-    if (n.charAt(0) == '-') {
+    if (n.charAt(0) == '+') {
         n = n.slice(1);
-        p = true;
+        p = false;
     }
     for (let replacement in TypeShortcuts)
         if (t == replacement)

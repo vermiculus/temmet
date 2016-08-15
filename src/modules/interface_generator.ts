@@ -25,5 +25,7 @@ export default function InterfaceGen(input: string): string {
         .filter((x: u.Field): boolean => x != null)
         .map((x: u.Field): string => `${x.name}: ${x.type};`);
 
-    return `interface ${name} {${u.JamLines(fieldLines)}}`;
+    params = u.JamLines(fieldLines);
+
+    return `interface ${name} {${params}}`;
 }
