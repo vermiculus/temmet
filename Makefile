@@ -9,3 +9,5 @@ server: src/server.js
 	node-dev src/server.js
 compile:
 	tsc -w src/server.ts
+clean:
+	find src -name "*.js" | xargs rm
